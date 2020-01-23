@@ -96,7 +96,7 @@
                         <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Pages <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="${pageContext.request.contextPath}/Home?page=error">404</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Home?page=error">List Users</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Home?page=listuser">List Users</a></li>
                         </ul>
                     </li>
                     <li><a href="#search"><i class="pe-7s-search"></i></a></li>

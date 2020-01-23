@@ -1,11 +1,18 @@
 package test.controller;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+import test.entity.User;
+import test.model.UserModel;
 
 /**
  * Servlet implementation class HomeController
@@ -13,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Home")
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    @Resource(name = "jdbc/webtest")
+    private DataSource datasource;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,7 +40,9 @@ public class HomeController extends HttpServlet {
 		case "home":
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		case "listuser":
-			request.getRequestDispatcher("listuser.jsp").forward(request, response);
+			List<User> userlist = new UserModel().listUsers(datasource, response) ;
+			request.setAttribute("userlist", userlist);
+			request.getRequestDispatcher("listUsers.jsp").forward(request, response);
 		default:
 			request.getRequestDispatcher("error.jsp").forward(request,response);
 		}

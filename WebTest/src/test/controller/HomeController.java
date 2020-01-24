@@ -38,12 +38,15 @@ public class HomeController extends HttpServlet {
 		page = page.toLowerCase();
 		switch(page) {
 		case "home":
+			request.setAttribute("title", "Home Page");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		case "listuser":
 			List<User> userlist = new UserModel().listUsers(datasource, response) ;
 			request.setAttribute("userlist", userlist);
+			request.setAttribute("title", "List Users");
 			request.getRequestDispatcher("listUsers.jsp").forward(request, response);
 		default:
+			request.setAttribute("title", "404 - Not Found");
 			request.getRequestDispatcher("error.jsp").forward(request,response);
 		}
 	}

@@ -1,4 +1,5 @@
-<jsp:include page="/include/header_test.jsp"></jsp:include>
+
+<%@ include file="/include/header_test.jsp" %>
 <div class="container">
         <div class="row">
            
@@ -9,4 +10,4 @@
             
         </div>
     </div>
-<jsp:include page="/include/footer.jsp"></jsp:include>
+<%@ include file="/include/footer.jsp" %>

@@ -14,7 +14,13 @@
     <link rel="apple-touch-icon" sizes="72x72" href="assets/img/ico/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" href="assets/img/ico/apple-touch-icon-57x57.png">
 
-    <title>Smash by Distinctive Themes</title>
+    <title><%  if(request.getAttribute("title") == null){
+    				out.print("Home Page");
+    			}
+			    else{
+			    	out.print(request.getAttribute("title"));
+			    }
+    %></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -81,22 +87,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/Home?page=home">Smash</a>
+                <a class="navbar-brand" href="<%=request.getContextPath()%>/Home?page=home">Smash</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li >
-                        <a href="${pageContext.request.contextPath}/Home?page=home">Home</a>
+                        <a href="<%=request.getContextPath()%>/Home?page=home">Home</a>
                         
                     </li>
                     
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Pages <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="${pageContext.request.contextPath}/Home?page=error">404</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Home?page=listuser">List Users</a></li>
+                            <li><a href="<%=request.getContextPath()%>/Home?page=error">404</a></li>
+                            <li><a href="<%=request.getContextPath()%>/Home?page=listuser">List Users</a></li>
                         </ul>
                     </li>
                     <li><a href="#search"><i class="pe-7s-search"></i></a></li>

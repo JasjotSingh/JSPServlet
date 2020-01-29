@@ -20,8 +20,7 @@ import test.model.UserModel;
 @WebServlet("/Home")
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    @Resource(name = "jdbc/webtest")
-    private DataSource datasource;
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,25 +37,21 @@ public class HomeController extends HttpServlet {
 		page = page.toLowerCase();
 		switch(page) {
 		case "home":
-			request.setAttribute("title", "Home Page");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-		case "listuser":
-			List<User> userlist = new UserModel().listUsers(datasource, response) ;
-			request.setAttribute("userlist", userlist);
-			request.setAttribute("title", "List Users");
-			request.getRequestDispatcher("listUsers.jsp").forward(request, response);
+			home(request, response);
+			break;
+		
 		default:
 			request.setAttribute("title", "404 - Not Found");
-			request.getRequestDispatcher("error.jsp").forward(request,response);
+			request.getRequestDispatcher("error1.jsp").forward(request,response);
+			break;
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+	public void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.setAttribute("title", "Home Page");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
+
+	
 
 }

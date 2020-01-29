@@ -102,7 +102,8 @@
                         <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Pages <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="<%=request.getContextPath()%>/Home?page=error">404</a></li>
-                            <li><a href="<%=request.getContextPath()%>/Home?page=listuser">List Users</a></li>
+                            <li><a href="<%=request.getContextPath()%>/Operations?page=listuser">List Users</a></li>
+                            <li><a href="<%=request.getContextPath()%>/Operations?page=adduserform">Add Users</a></li>
                         </ul>
                     </li>
                     <li><a href="#search"><i class="pe-7s-search"></i></a></li>

@@ -2,6 +2,7 @@ package test.model;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,11 +35,32 @@ public class UserModel {
 		}
 		catch(SQLException e) {
 			try {
-				response.getWriter().print("issue in sql connection.");
+				response.getWriter().print("issue in loading rec.");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		}
 		return ret;
+	}
+	
+	public void addUser(DataSource datasource, User newuser) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			con = datasource.getConnection();
+			
+			String query = "insert into User (username, email) values (?,?)";
+			stmt = con.prepareStatement(query);
+			
+			stmt.setString(1, newuser.getUsername());
+			stmt.setString(2, newuser.getEmail());
+			
+			stmt.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

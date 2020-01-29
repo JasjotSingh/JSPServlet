@@ -6,23 +6,29 @@
            
             <div class="col-md-4 text-center">
                 <em><Strong>List Users</Strong></em><br>
-                <table >
+                <table>
                 	<thead>
                 		<tr>
-	                		<th>User ID.</th>
-	                		<th>User Name</th>
-	                		<th>Email</th>
+	                		<th style="text-aline:center">User ID.</th>
+	                		<th style="text-aline:center">User Name</th>
+	                		<th style="text-aline:center">Email</th>
+	                		<th style="text-aline:center">Operation</th>
                 		</tr>
                 	</thead>
                 	<tbody>
                 		<%
+                			String tempUrl = "";
                 			List<User> lst = (List)request.getAttribute("userlist");
-                			for(User usr: lst){
-                				out.print("<tr>");
-	                				out.print("<td>"+usr.getId()+"</td>");
-	                				out.print("<td>"+usr.getUsername()+"</td>");
-	                				out.print("<td>"+usr.getEmail()+"</td>");
-                				out.print("</tr>");
+                			if(lst != null){
+	                			for(int i = 0 ; i < lst.size(); i++){
+	                				out.print("<tr>");
+		                				out.print("<td>"+lst.get(i).getId()+"</td>");
+		                				out.print("<td>"+lst.get(i).getUsername()+"</td>");
+		                				out.print("<td>"+lst.get(i).getEmail()+"</td>");
+		                				tempUrl = request.getContextPath()+"/Operations?page=update&userid="+lst.get(i).getId();
+		                				out.print("<td><a href='"+tempUrl+"'>update</a>"+"<td>");
+	                				out.print("</tr>");
+	                			}
                 			}
                 		%>
                 	</tbody>

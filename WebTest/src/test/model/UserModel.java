@@ -63,4 +63,44 @@ public class UserModel {
 		}
 		
 	}
+
+	public void updateUser(DataSource datasource, User user) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			con = datasource.getConnection();
+			String query = "Update User set username=?, email=? where id = ?";
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, user.getUsername());
+			stmt.setString(2, user.getEmail());
+			stmt.setInt(3, user.getId());
+			
+			stmt.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void deleteUser(DataSource datasource, int userid) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			con = datasource.getConnection();
+			String query = "delete from User where id= ?";
+			
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, userid);
+			
+			stmt.execute();
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+	}
 }

@@ -43,6 +43,12 @@ public class appController extends HttpServlet {
 		case "adduserform":
 			addUserForm(request, response);
 			break;
+		case "updateuserform":
+			updateUserForm(request,response);
+			break;
+		case "deleteuser":
+			deleteUser(request, response);
+			break;
 		default:
 			request.setAttribute("title", "404 - Not Found");
 			request.getRequestDispatcher("error1.jsp").forward(request,response);
@@ -50,6 +56,8 @@ public class appController extends HttpServlet {
 		}
 	}
 	
+	
+
 	public void listUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<User> userlist = new UserModel().listUsers(datasource, response) ;
 		request.setAttribute("userlist", userlist);
@@ -60,6 +68,12 @@ public class appController extends HttpServlet {
 	public void addUserForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		request.setAttribute("title", "Add User");
 		request.getRequestDispatcher("adduser.jsp").forward(request, response);
+	}
+	
+	public void updateUserForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.setAttribute("title", "Update User");
+		request.setAttribute("userid", request.getParameter("userid"));
+		request.getRequestDispatcher("updateuser.jsp").forward(request,response);
 	}
 	
 	/**
@@ -73,20 +87,51 @@ public class appController extends HttpServlet {
 		switch(action) {
 		case "adduser":
 			addUser(request,response);
-			String path = request.getContextPath();
-			response.sendRedirect(path+"/Operations?page=listuser");
+			break;
+		case "updateuser":
+			String userid = request.getParameter("userid");
+			updateUser(request,response);
 			break;
 		default:
 			request.getRequestDispatcher("error1.jsp").forward(request, response);
 		}
 	}
 	
-	public void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userid = Integer.parseInt(request.getParameter("userid"));
+		
+		UserModel um = new UserModel();
+		um.deleteUser(datasource, userid);
+		
+		//redirect to listusers.
+		String path = request.getContextPath();
+		response.sendRedirect(path+"/Operations?page=listuser");
+		
+	}
+	
+	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String username = request.getParameter("username");
+		String email = request.getParameter("email");
+		int userid = Integer.parseInt(request.getParameter("userid"));
+		
+		UserModel um = new UserModel();
+		um.updateUser(datasource, new User(userid, username, email));
+		
+		//redirect to listusers.
+		String path = request.getContextPath();
+		response.sendRedirect(path+"/Operations?page=listuser");
+	}
+
+	private void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		
 		UserModel um = new UserModel();
 		um.addUser(datasource, new User(username, email));
+		
+		//redirect to listusers.
+		String path = request.getContextPath();
+		response.sendRedirect(path+"/Operations?page=listuser");
 		
 	}
 

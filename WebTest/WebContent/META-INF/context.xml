@@ -2,7 +2,7 @@
 	<Resource	name = "jdbc/webtest"
 				auth = "Container"
 				type = "javax.sql.DataSource"
-				username ="root" password = ""
+				username ="" password = ""
 			  	maxActive = "25" maxIdle = "25"
 			  	driverClassName = "com.mysql.cj.jdbc.Driver"
 			  	url="jdbc:mysql://127.0.0.1:3306/test1?useSSL=false"/>
